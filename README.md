@@ -60,7 +60,7 @@ const editor = new Editor({
 });
 
 // Duplicate the current column with content
-editor.commands.duplicateColumn(false);
+editor.commands.duplicateColumn(true);
 
 // Duplicate the current row without content
 editor.commands.duplicateRow(false);
