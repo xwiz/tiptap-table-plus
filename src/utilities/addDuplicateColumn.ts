@@ -1,11 +1,13 @@
 import { columnIsHeader, addColSpan, tableNodeTypes } from '@tiptap/pm/tables'
+import { Transaction } from '@tiptap/pm/state';
+
 export default function addDuplicateColumn(
-    tr,
-    { map, tableStart, table },
-    col,
+    tr: Transaction,
+    { map, tableStart, table }: { map: any, tableStart: number, table: any },
+    col: number,
     withContent = true
 ) {
-    let refColumn = col > 0 ? -1 : 0;
+    let refColumn: number | null = col > 0 ? -1 : 0;
     if (columnIsHeader(map, table, col + refColumn)) {
         refColumn = col == 0 || col == map.width ? null : 0;
     }

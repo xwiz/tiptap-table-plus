@@ -1,4 +1,5 @@
 import { rowIsHeader, tableNodeTypes } from "@tiptap/pm/tables";
+import { Transaction } from "@tiptap/pm/state";
 
 /**
  * Adds a duplicate row to the table in the ProseMirror transaction.
@@ -10,9 +11,9 @@ import { rowIsHeader, tableNodeTypes } from "@tiptap/pm/tables";
  * @returns {Transaction} - The updated transaction.
  */
 export default function addDuplicateRow(
-    tr,
-    { map, tableStart, table },
-    row,
+    tr: Transaction,
+    { map, tableStart, table }: { map: any, tableStart: number, table: any },
+    row: number,
     withContent = true
 ) {
     // Calculate the starting position of the row to duplicate
