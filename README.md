@@ -2,7 +2,7 @@
 # Tiptap Table Plus
 [![NPM](https://img.shields.io/npm/v/tiptap-table-plus.svg)](https://www.npmjs.com/package/tiptap-table-plus)
 
-`tiptap-table-plus` is an npm package that extends the table functionality of the Tiptap editor by adding two new commands: `duplicateColumn` and `duplicateRow`.
+`tiptap-table-plus` | Tiptap table plus is an npm package that extends the table functionality of the Tiptap editor by adding two new commands: `duplicateColumn` and `duplicateRow`.
 
 ## Installation
 
