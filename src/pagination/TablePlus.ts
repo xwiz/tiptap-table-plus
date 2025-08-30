@@ -1,13 +1,16 @@
 import Table, { createColGroup } from "@tiptap/extension-table";
 import { mergeAttributes } from "@tiptap/core";
-import { Plugin } from "@tiptap/pm/state";
+import { EditorState, Plugin, Transaction } from "@tiptap/pm/state";
 import { DOMOutputSpec } from "@tiptap/pm/model";
 import { TableRowGroup } from "./TableRowGroup";
+import TableCommandExtension from "../TableCommandExtension";
+
 export const TablePlus = Table.extend({
   content: "(tableRowGroup|tableRow)+",
   addExtensions() {
     return [
       TableRowGroup,
+      TableCommandExtension
     ]
   },
   renderHTML({ node, HTMLAttributes }) {

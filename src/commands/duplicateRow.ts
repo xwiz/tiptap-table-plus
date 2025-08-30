@@ -1,8 +1,8 @@
 import { isInTable, selectedRect } from "@tiptap/pm/tables";
 import addDuplicateRow from "../utilities/addDuplicateRow";
-import { EditorState, Transaction } from "@tiptap/pm/state";
+import { EditorState } from "@tiptap/pm/state";
 
-const duplicateRow = (state: EditorState, dispatch: (tr: Transaction) => void, withContent = true) => {
+const duplicateRow = (state: EditorState, dispatch: ((args?: any) => any) | undefined, withContent = true) => {
     if (!isInTable(state)) return false;
     if (dispatch) {
         const rect = selectedRect(state);
