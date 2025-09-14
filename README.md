@@ -64,13 +64,15 @@ const editor = new Editor({
 
 The package now includes advanced pagination table support with automatic row grouping based on rowspan logic. This feature automatically organizes table rows into logical groups for better pagination and display.
 
+Tiptap Pagination : https://romikmakavana.me/tiptap/pagination-plus/
+
 ## Features
 
 - **Automatic Row Grouping**: Intelligently groups table rows based on rowspan attributes
 - **Enhanced Table Structure**: Supports both direct table rows and grouped table rows
 - **Smart Pagination**: Automatically handles complex table layouts with merged cells
 - **CSS Custom Properties**: Provides CSS variables for styling and layout control
-
+- **Column Resize Support** – Allows users to interactively adjust column widths for better readability
 ## Components
 
 ### `PaginationTable`

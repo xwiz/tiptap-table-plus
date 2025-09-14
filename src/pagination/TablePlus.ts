@@ -1,17 +1,48 @@
-import Table, { createColGroup } from "@tiptap/extension-table";
+import Table from "@tiptap/extension-table";
 import { mergeAttributes } from "@tiptap/core";
-import { EditorState, Plugin, Transaction } from "@tiptap/pm/state";
 import { DOMOutputSpec } from "@tiptap/pm/model";
 import { TableRowGroup } from "./TableRowGroup";
-import TableCommandExtension from "../TableCommandExtension";
+import { TableCommandExtension } from "../TableCommandExtension";
+import { TablePlusNodeView } from "./TablePlusNodeView";
+import { TablePlusOptions } from "./types";
 
-export const TablePlus = Table.extend({
+export const TablePlus = Table.extend<TablePlusOptions>({
   content: "(tableRowGroup|tableRow)+",
+  addOptions() {
+    return {
+      ...this.parent?.(),
+      resizeHandleStyle: {
+        background: "#353535",
+      },
+    };
+  },
   addExtensions() {
     return [
       TableRowGroup,
-      TableCommandExtension
+      TableCommandExtension,
     ]
+  },
+  addAttributes() {
+    return {
+      ...this.parent?.(),
+      columnSize: {
+        default: '',
+        parseHTML: (element) => {
+          let columnSize = element.getAttribute('data-column-size') || '';
+          let columnSizeList = columnSize.split(',');
+          const isAllNumber = columnSizeList.every((a: string) => !isNaN(Number(a)));
+          if(!isAllNumber) {
+            columnSizeList = [];
+          }
+          return columnSizeList.join(',');
+        },
+        renderHTML: (attributes) => {
+          return {
+            'data-column-size': attributes.columnSize,
+          };
+        },
+      },
+    }
   },
   renderHTML({ node, HTMLAttributes }) {
     const table: DOMOutputSpec = [
@@ -24,29 +55,7 @@ export const TablePlus = Table.extend({
     return table;
   },
   addNodeView() {
-    return ({ node }) => {
-      const dom = document.createElement('table');
-      let maxCellCount = 0;
-      node.forEach((child) => {
-        if (child.type.name === 'tableRowGroup') {
-          child.forEach(row => {
-            if (row.type.name === 'tableRow') {
-              if(row.childCount > maxCellCount) {
-                maxCellCount = row.childCount;
-              }
-            }
-          });
-        } else if (child.type.name === 'tableRow') {
-          if(child.childCount > maxCellCount) {
-            maxCellCount = child.childCount;
-          }
-        }
-      });
-      
-      dom.style.setProperty('--cell-count', maxCellCount.toString());
-      dom.classList.add('table-plus');
-      return { dom, contentDOM: dom };
-    };
+    return ({ node, getPos, editor }) => new TablePlusNodeView(node, getPos, editor, this.options)
   },
 });
 
