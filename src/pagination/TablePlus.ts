@@ -19,6 +19,7 @@ export const TablePlus = Table.extend<TablePlusOptions>({
         background: "#353535",
       },
       minColumnSize: 50,
+      borderColor: "black",
     };
   },
   addExtensions() {

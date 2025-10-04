@@ -3,7 +3,10 @@ import TableHeader from "@tiptap/extension-table-header";
 export const TableHeaderPlus = TableHeader.extend({
     addNodeView() {
         return ({ node }) => {
+          const tableNode = this.editor.extensionManager.extensions.find((extension) => extension.name === "table");
+          const borderColor = tableNode ? tableNode.options.borderColor : "black";
           const dom = document.createElement('th');
+          dom.style.border = `1px solid ${borderColor}`;
           let colspan = node.attrs.colspan;
           let rowspan = node.attrs.rowspan;
           const updateGrid = (colspan: number, rowspan: number) => {
