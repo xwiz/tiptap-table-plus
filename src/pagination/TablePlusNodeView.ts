@@ -25,13 +25,16 @@ export class TablePlusNodeView {
     this.options = options;
     this.dom = document.createElement("div");
     this.dom.style.position = "relative";
+    (this.dom.style as any).pageBreakInside = "avoid";
+    (this.dom.style as any).breakInside = "avoid";
 
     this.maxCellCount = 0;
     this.cellPercentage = [];
     this.handles = [];
     this.slider = document.createElement("div");
     this.slider.style.width = "100%";
-    this.slider.style.position = "relative";
+    this.slider.style.position = "relative";    
+    (this.slider.style as any).pageBreakAfter = "avoid";// Avoid page break between slider and table.
     this.dom.appendChild(this.slider);
 
     this.updateNode(node);
@@ -39,6 +42,7 @@ export class TablePlusNodeView {
     this.contentDOM = document.createElement("table");
     this.contentDOM.classList.add("table-plus");
     this.contentDOM.style.flex = "1"; // allow child nodes to expand if needed
+    (this.contentDOM.style as any).pageBreakBefore = "avoid";//pair with slider
     this.dom.appendChild(this.contentDOM);
   }
 
